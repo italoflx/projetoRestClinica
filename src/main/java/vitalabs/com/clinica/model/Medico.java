@@ -25,10 +25,13 @@ public class Medico{
     String crm;
     String especialidade;
 
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval=true)
+    @JoinColumn(name="id_medico")
+    List<Consulta> consultas = new ArrayList<Consulta>();
+
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "medico_disponibilidade", joinColumns = { @JoinColumn(name =
             "medico_id", referencedColumnName = "id_medico") }, inverseJoinColumns = {
             @JoinColumn(name = "disponibilidade_id") })
     List<Disponibilidade> disponibilidades = new ArrayList<Disponibilidade>();
-
 }

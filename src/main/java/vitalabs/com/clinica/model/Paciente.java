@@ -3,6 +3,8 @@ package vitalabs.com.clinica.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -14,10 +16,13 @@ public class Paciente extends AbstractEntity{
     @JoinColumn(name = "id_prontuario")
     Prontuario prontuario;
     String cpf;
-    String alergias;
     Character sexo;
     String nome;
     String idade;
     Float altura;
     Float peso;
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "id_paciente")
+    List<Consulta> consultas;
 }

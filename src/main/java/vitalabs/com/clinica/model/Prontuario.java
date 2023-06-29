@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+
+import java.time.LocalDateTime;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -16,4 +19,9 @@ public class Prontuario {
     @Column(name = "id_prontuario")
     String id;
     String idPaciente;
+    @CreationTimestamp
+    LocalDateTime createdAt;
+    String alergias;
+    // Limitações: cognitivas, locomoção, visão, audição etc.
+    String limitacoes;
 }

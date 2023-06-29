@@ -15,7 +15,8 @@ import java.util.Date;
 public class Consulta {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    String idConsulta;
+    @Column(name = "id_consulta")
+    String id;
     Date dataHoraConsulta;
     String data;
     String hora;
