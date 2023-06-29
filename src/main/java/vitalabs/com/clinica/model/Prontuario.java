@@ -16,6 +16,4 @@ public class Prontuario {
     @Column(name = "id_prontuario")
     String id;
     String idPaciente;
-    //Algo pra guardar as consultas anteriores
-
 }

@@ -12,11 +12,10 @@ import java.util.Date;
 @NoArgsConstructor
 @Data
 @Entity
-@Table(name = "consulta")
 public class Consulta {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    String idConsulta; //Chave composta de paciente e medico (n,n)
+    String idConsulta;
     Date dataHoraConsulta;
     String data;
     String hora;
@@ -35,5 +34,4 @@ public class Consulta {
     public String getDataHoraConsulta(){
         return data+ " || " +hora;
     }
-
 }
