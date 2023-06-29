@@ -12,7 +12,7 @@ import java.util.Date;
 @NoArgsConstructor
 @Data
 @Entity
-public class Consulta {
+public class Consulta extends AbstractEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id_consulta")
