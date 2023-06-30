@@ -8,7 +8,6 @@ import java.util.Date;
 public class Disponibilidade {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "disponibilidade_id")
     String id;
     Date data;
     String hora;

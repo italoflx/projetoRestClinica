@@ -12,11 +12,9 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Data
 @Entity
-@Table(name = "prontuario")
 public class Prontuario {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "id_prontuario")
     String id;
     String idPaciente;
     @CreationTimestamp

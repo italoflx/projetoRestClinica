@@ -10,10 +10,8 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-@Table(name = "paciente")
 public class Paciente extends AbstractEntity{
     @OneToOne
-    @JoinColumn(name = "id_prontuario")
     Prontuario prontuario;
     String cpf;
     Character sexo;
