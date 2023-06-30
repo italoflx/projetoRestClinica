@@ -3,6 +3,7 @@ package vitalabs.com.clinica.model;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import java.text.SimpleDateFormat;
@@ -12,10 +13,9 @@ import java.util.Date;
 @NoArgsConstructor
 @Data
 @Entity
-public class Consulta extends AbstractEntity {
+public class Consulta{
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "id_consulta")
     String id;
     Date dataHoraConsulta;
     String data;

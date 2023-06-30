@@ -9,19 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class Medico{
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "id_medico")
-    String id;
-    String nome;
-    String contato;
-    String email;
-    LocalDateTime deletedAt;
-    @CreationTimestamp
-    LocalDateTime createdAt;
-    @UpdateTimestamp
-    LocalDateTime updatedAt;
+public class Medico extends AbstractEntity{
     String crm;
     String especialidade;
 
@@ -31,7 +19,7 @@ public class Medico{
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "medico_disponibilidade", joinColumns = { @JoinColumn(name =
-            "medico_id", referencedColumnName = "id_medico") }, inverseJoinColumns = {
+            "medico_id", referencedColumnName = "id") }, inverseJoinColumns = {
             @JoinColumn(name = "disponibilidade_id") })
     List<Disponibilidade> disponibilidades = new ArrayList<Disponibilidade>();
 }
