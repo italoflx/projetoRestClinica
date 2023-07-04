@@ -4,12 +4,15 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.hibernate.Hibernate;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.format.annotation.NumberFormat;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -22,7 +25,11 @@ public abstract class AbstractEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     String id;
+    @NotNull
+    @NotBlank(message = "Usuário com nome em branco")
     String nome;
+    @NotNull
+    @NotBlank(message = "Usuário com contato em branco")
     String contato;
     String email;
     LocalDateTime deletedAt;

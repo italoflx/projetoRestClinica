@@ -5,6 +5,7 @@ import jakarta.validation.constraints.*;
 import lombok.*;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
+import org.hibernate.validator.constraints.br.CPF;
 import org.modelmapper.ModelMapper;
 import org.springframework.hateoas.RepresentationModel;
 import vitalabs.com.clinica.controller.PacienteController;
@@ -23,13 +24,18 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 public class Paciente extends AbstractEntity{
     @OneToOne
     Prontuario prontuario;
-    @NotNull(message = "Usuário com CPF em branco")
+    @NotNull
+    @NotBlank(message = "Usuário com CPF em branco")
+    //Nao colocar o @cpf pois e apenas para fins de apresentacao
     String cpf;
     Character sexo;
+    @NotNull
     @Min(value = 0, message = "Idade inválida")
     Integer idade;
+    @NotNull
     @Min(value = 0, message = "Altura inválida")
     Float altura;
+    @NotNull
     @Min(value = 0, message = "Peso inválido")
     Float peso;
 
@@ -39,14 +45,14 @@ public class Paciente extends AbstractEntity{
 
     @Data
     public static class DtoRequest{
-        //Validacoes nao funcionam ainda
         String nome;
-        String cpf; //validar cpf
+        String cpf;
         Character sexo;
         Integer idade;
         Float altura;
         Float Peso;
-
+        String contato;
+        String email;
 
         public static Paciente convertToEntity(DtoRequest dto, ModelMapper mapper){
             return mapper.map(dto, Paciente.class);
@@ -62,6 +68,8 @@ public class Paciente extends AbstractEntity{
         String idade;
         Float altura;
         Float peso;
+        String contato;
+        String email;
 
         public static Paciente.DtoResponse convertToDto(Paciente p, ModelMapper mapper){
             return mapper.map(p, Paciente.DtoResponse.class);
