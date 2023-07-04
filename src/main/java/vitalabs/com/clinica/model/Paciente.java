@@ -5,6 +5,7 @@ import jakarta.validation.constraints.*;
 import lombok.*;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
+import org.hibernate.validator.constraints.br.CPF;
 import org.modelmapper.ModelMapper;
 import org.springframework.hateoas.RepresentationModel;
 import vitalabs.com.clinica.controller.PacienteController;
@@ -23,14 +24,10 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 public class Paciente extends AbstractEntity{
     @OneToOne
     Prontuario prontuario;
-    @NotNull(message = "Usuário com CPF em branco")
     String cpf;
     Character sexo;
-    @Min(value = 0, message = "Idade inválida")
     Integer idade;
-    @Min(value = 0, message = "Altura inválida")
     Float altura;
-    @Min(value = 0, message = "Peso inválido")
     Float peso;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
@@ -41,10 +38,15 @@ public class Paciente extends AbstractEntity{
     public static class DtoRequest{
         //Validacoes nao funcionam ainda
         String nome;
+        @CPF
+        @NotNull(message = "Usuário com CPF em branco")
         String cpf; //validar cpf
         Character sexo;
+        @Min(value = 0, message = "Idade inválida")
         Integer idade;
+        @Min(value = 0, message = "Altura inválida")
         Float altura;
+        @Min(value = 0, message = "Peso inválido")
         Float Peso;
 
 
