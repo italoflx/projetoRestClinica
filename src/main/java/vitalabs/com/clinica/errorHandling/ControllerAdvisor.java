@@ -29,6 +29,17 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
     }
 
+    @ExceptionHandler({ConstraintViolationException.class})
+    public ResponseEntity<Object> handleConstraintViolationException(
+            ConstraintViolationException ex, WebRequest request) {
+
+        Map<String, Object> body = new LinkedHashMap<>();
+        body.put("timestamp", LocalDateTime.now());
+        body.put("message", "Erro ao validar a entrada");
+        
+        return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
+    }
+
 
     @ExceptionHandler({NullPointerException.class})
     public ResponseEntity<Object> handleNullPointerException(
@@ -39,16 +50,5 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
         body.put("message", "Erro qualquer");
 
         return new ResponseEntity<>(body, HttpStatus.INTERNAL_SERVER_ERROR);
-    }
-
-    @ExceptionHandler({ConstraintViolationException.class})
-    public ResponseEntity<Object> handleConstraintViolationException(
-            ConstraintViolationException ex, WebRequest request) {
-
-        Map<String, Object> body = new LinkedHashMap<>();
-        body.put("timestamp", LocalDateTime.now());
-        body.put("message", "Erro ao validar a entrada");
-
-        return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
     }
 }

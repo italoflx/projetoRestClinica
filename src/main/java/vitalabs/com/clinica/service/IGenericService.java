@@ -8,4 +8,5 @@ public interface IGenericService<E extends AbstractEntity>{
     public E update(E e, String id);
     public void delete(String id);
     public List<E> list();
+    public E getById(String id);
 }
