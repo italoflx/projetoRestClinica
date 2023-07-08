@@ -50,7 +50,6 @@ public class MedicoController {
         Medico.DtoResponse response = Medico.DtoResponse.convertToDto(medico, mapper);
 
         response.generateLinks(medico.getId());
-
         return response;
     }
 
