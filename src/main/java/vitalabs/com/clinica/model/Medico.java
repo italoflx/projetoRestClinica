@@ -1,12 +1,20 @@
 package vitalabs.com.clinica.model;
 
 import jakarta.persistence.*;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.modelmapper.ModelMapper;
+import org.springframework.hateoas.RepresentationModel;
+import vitalabs.com.clinica.controller.PacienteController;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @Entity
 public class Medico extends AbstractEntity{
@@ -22,4 +30,40 @@ public class Medico extends AbstractEntity{
             "medico_id", referencedColumnName = "id") }, inverseJoinColumns = {
             @JoinColumn(name = "disponibilidade_id") })
     List<Disponibilidade> disponibilidades = new ArrayList<Disponibilidade>();
+
+    @Data
+    public static class DtoRequest{
+        String nome;
+        String contato;
+        String email;
+        String crm;
+        String especialidade;
+
+        public static Medico convertToEntity(Medico.DtoRequest dto, ModelMapper mapper){
+            return mapper.map(dto, Medico.class);
+        }
+    }
+
+    @EqualsAndHashCode(callSuper = true)
+    @Data
+    public static class DtoResponse extends RepresentationModel<DtoResponse> {
+        String nome;
+        String contato;
+        String email;
+        String crm;
+        String especialidade;
+
+        public static Medico.DtoResponse convertToDto(Medico p, ModelMapper mapper){
+            return mapper.map(p, Medico.DtoResponse.class);
+        }
+
+        public void generateLinks(String id){
+            add(linkTo(PacienteController.class).slash(id).withSelfRel());
+            add(linkTo(PacienteController.class).withRel("pacientes"));
+            add(linkTo(PacienteController.class).slash(id).withRel("delete"));
+        }
+    }
+
+
+
 }

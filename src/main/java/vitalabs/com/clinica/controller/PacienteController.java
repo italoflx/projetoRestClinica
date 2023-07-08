@@ -3,6 +3,7 @@ package vitalabs.com.clinica.controller;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import vitalabs.com.clinica.model.Medico;
 import vitalabs.com.clinica.model.Paciente;
 import vitalabs.com.clinica.service.PacienteService;
 
