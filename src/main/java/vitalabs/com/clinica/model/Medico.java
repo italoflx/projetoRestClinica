@@ -59,11 +59,8 @@ public class Medico extends AbstractEntity{
 
         public void generateLinks(String id){
             add(linkTo(PacienteController.class).slash(id).withSelfRel());
-            add(linkTo(PacienteController.class).withRel("pacientes"));
+            add(linkTo(PacienteController.class).withRel("Medico"));
             add(linkTo(PacienteController.class).slash(id).withRel("delete"));
         }
     }
-
-
-
 }

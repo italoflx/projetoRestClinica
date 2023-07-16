@@ -3,21 +3,24 @@ package vitalabs.com.clinica.controller;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import vitalabs.com.clinica.model.Medico;
 import vitalabs.com.clinica.model.Paciente;
 import vitalabs.com.clinica.service.PacienteService;
+import vitalabs.com.clinica.service.ProntuarioService;
 
 import java.util.List;
 
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/pacientes")
 public class PacienteController {
     PacienteService service;
+    ProntuarioService prontuarioService;
     ModelMapper mapper;
 
-    public PacienteController(PacienteService service, ModelMapper mapper){
+    public PacienteController(PacienteService service, ModelMapper mapper, ProntuarioService prontuarioService){
         this.service = service;
         this.mapper = mapper;
+        this.prontuarioService = prontuarioService;
     }
 
     @GetMapping
@@ -33,7 +36,6 @@ public class PacienteController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Paciente.DtoResponse create(@RequestBody Paciente.DtoRequest p){
-
         Paciente paciente = this.service.create(Paciente.DtoRequest.convertToEntity(p, mapper));
 
         Paciente.DtoResponse response = Paciente.DtoResponse.convertToDto(paciente, mapper);
@@ -51,9 +53,12 @@ public class PacienteController {
         return response;
     }
 
-    @PutMapping("{id}")
-    public Paciente update(@RequestBody Paciente p, @PathVariable String id){
-        return this.service.update(p, id);
+    @PutMapping("/{id}")
+    public Paciente.DtoResponse update(@RequestBody Paciente.DtoRequest dtoRequest, @PathVariable String id) {
+        Paciente u = Paciente.DtoRequest.convertToEntity(dtoRequest, mapper);
+        Paciente.DtoResponse response = Paciente.DtoResponse.convertToDto(this.service.update(u, id), mapper);
+        response.generateLinks(id);
+        return response;
     }
 
     @DeleteMapping("{id}")

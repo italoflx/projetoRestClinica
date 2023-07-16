@@ -22,7 +22,8 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 @SQLDelete(sql = "UPDATE pessoa SET deleted_at = CURRENT_TIMESTAMP WHERE id=?")
 @Where(clause = "deleted_at is null")
 public class Paciente extends AbstractEntity{
-    @OneToOne
+    @NotNull
+    @OneToOne(cascade = {CascadeType.ALL})
     Prontuario prontuario;
     @NotNull
     @NotBlank(message = "Usuário com CPF em branco")
@@ -53,6 +54,7 @@ public class Paciente extends AbstractEntity{
         Float Peso;
         String contato;
         String email;
+        Prontuario prontuario;
 
         public static Paciente convertToEntity(DtoRequest dto, ModelMapper mapper){
             return mapper.map(dto, Paciente.class);
