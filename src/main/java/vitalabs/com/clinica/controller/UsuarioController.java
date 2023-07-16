@@ -27,6 +27,7 @@ public class UsuarioController {
 
         Usuario.DtoResponse response = Usuario.DtoResponse.convertToDto(usuario, mapper);
         response.generateLinks(usuario.getId());
+        System.out.println("Passou aqui");
         return response;
 
     }

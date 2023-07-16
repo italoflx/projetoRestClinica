@@ -6,11 +6,13 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import vitalabs.com.clinica.config.LoginDTO;
 import vitalabs.com.clinica.service.TokenService;
 
 @RestController
+@RequestMapping("/login")
 public class AuthController {
 
     private final TokenService tokenService;
@@ -22,9 +24,8 @@ public class AuthController {
         this.authenticationManager = authenticationManager;
     }
 
-    @PostMapping("/login")
+    @PostMapping
     public String token(@RequestBody @Valid LoginDTO loginDTO) {
-
         Authentication authentication = authenticationManager
                 .authenticate(new UsernamePasswordAuthenticationToken(loginDTO.username(), loginDTO.password()));
         return tokenService.generateToken(authentication);

@@ -6,6 +6,5 @@ import vitalabs.com.clinica.model.Usuario;
 
 
 public interface UsuarioRepository extends IGenericRepository<Usuario> {
-    UserDetails findByLogin(String login);
-
+    UserDetails findByUsername(String username);
 }

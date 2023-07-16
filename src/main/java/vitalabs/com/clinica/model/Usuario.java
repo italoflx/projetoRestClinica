@@ -76,6 +76,9 @@ public class Usuario extends AbstractEntity implements UserDetails {
         String login;
         @NotBlank(message = "Password com nome em branco")
         String password;
+        String nome;
+        String contato;
+        String email;
 
         public static Usuario convertToEntity(DtoRequest dto, ModelMapper mapper) {
             return mapper.map(dto, Usuario.class);

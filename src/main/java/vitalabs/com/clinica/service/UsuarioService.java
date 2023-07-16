@@ -24,6 +24,6 @@ public class UsuarioService extends GenericService<Usuario, UsuarioRepository> i
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return repository.findByLogin(username);
+        return repository.findByUsername(username);
     }
 }

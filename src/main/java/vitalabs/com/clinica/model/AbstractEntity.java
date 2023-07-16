@@ -25,10 +25,8 @@ public abstract class AbstractEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     String id;
-    @NotNull
     @NotBlank(message = "Usuário com nome em branco")
     String nome;
-    @NotNull
     @NotBlank(message = "Usuário com contato em branco")
     String contato;
     String email;
