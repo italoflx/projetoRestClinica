@@ -16,20 +16,28 @@ import java.util.List;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
+@EqualsAndHashCode(callSuper = true)
 @Entity
+@Data
 public class Medico extends AbstractEntity{
     String crm;
     String especialidade;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval=true)
+    @OneToMany(cascade = {CascadeType.ALL}, orphanRemoval=true)
     @JoinColumn(name="id_medico")
-    List<Consulta> consultas = new ArrayList<Consulta>();
+    List<Consulta> consultas = new ArrayList<>();
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "medico_disponibilidade", joinColumns = { @JoinColumn(name =
-            "medico_id", referencedColumnName = "id") }, inverseJoinColumns = {
-            @JoinColumn(name = "disponibilidade_id") })
-    List<Disponibilidade> disponibilidades = new ArrayList<Disponibilidade>();
+    @ManyToMany(cascade = {CascadeType.ALL})
+    @JoinTable(
+            name = "medico_disponibilidade",
+            joinColumns = {
+                @JoinColumn(name = "medico_id", referencedColumnName = "id")
+            },
+            inverseJoinColumns = {
+                @JoinColumn(name = "disponibilidade_id")
+            }
+    )
+    List<Disponibilidade> disponibilidades = new ArrayList<>();
 
     @Data
     public static class DtoRequest{
@@ -38,8 +46,13 @@ public class Medico extends AbstractEntity{
         String email;
         String crm;
         String especialidade;
-
+        List<Disponibilidade> disponibilidades = new ArrayList<>();
+        List<Consulta> consultas = new ArrayList<>();
         public static Medico convertToEntity(Medico.DtoRequest dto, ModelMapper mapper){
+            for (Disponibilidade d: dto.disponibilidades
+                 ) {
+                System.out.println(d.toString());
+            }
             return mapper.map(dto, Medico.class);
         }
     }

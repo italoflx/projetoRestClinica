@@ -12,6 +12,7 @@ import java.util.Date;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
 @Entity
+@Data
 public class Disponibilidade {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

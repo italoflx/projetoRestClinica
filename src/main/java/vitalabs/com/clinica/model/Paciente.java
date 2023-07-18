@@ -5,7 +5,6 @@ import jakarta.validation.constraints.*;
 import lombok.*;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
-import org.hibernate.validator.constraints.br.CPF;
 import org.modelmapper.ModelMapper;
 import org.springframework.hateoas.RepresentationModel;
 import vitalabs.com.clinica.controller.PacienteController;
@@ -22,12 +21,10 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 @SQLDelete(sql = "UPDATE pessoa SET deleted_at = CURRENT_TIMESTAMP WHERE id=?")
 @Where(clause = "deleted_at is null")
 public class Paciente extends AbstractEntity{
-    @NotNull
     @OneToOne(cascade = {CascadeType.ALL})
     Prontuario prontuario;
     @NotNull
     @NotBlank(message = "Usuário com CPF em branco")
-    //Nao colocar o @cpf pois e apenas para fins de apresentacao
     String cpf;
     Character sexo;
     @NotNull

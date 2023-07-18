@@ -11,7 +11,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.hateoas.RepresentationModel;
 import vitalabs.com.clinica.controller.PacienteController;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.Date;
 
@@ -30,11 +29,20 @@ public class Consulta{
     String procedimentos;
     String prescricoes;
     String observacoes;
+
     LocalDateTime deletedAt;
     @CreationTimestamp
     Date dataHoraConsulta;
     @UpdateTimestamp
     LocalDateTime updatedAt;
+
+    @ManyToOne
+    @JoinColumn(name = "medico_id")
+    private Medico medico;
+
+    @ManyToOne
+    @JoinColumn(name = "paciente_id")
+    private Paciente paciente;
 
     @Data
     public static class DtoRequest{
@@ -43,6 +51,8 @@ public class Consulta{
         String procedimentos;
         String prescricoes;
         String observacoes;
+        String medico_id;
+        String paciente_id;
 
         public static Consulta convertToEntity(Consulta.DtoRequest dto, ModelMapper mapper){
             return mapper.map(dto, Consulta.class);
@@ -54,7 +64,7 @@ public class Consulta{
     public static class DtoResponse extends RepresentationModel<Consulta.DtoResponse> {
         String data;
         String hora;
-        public static Consulta.DtoResponse convertToDto(Consulta p, ModelMapper mapper){
+        public static Consulta.DtoResponse convertToDto(Object p, ModelMapper mapper){
             return mapper.map(p, Consulta.DtoResponse.class);
         }
 

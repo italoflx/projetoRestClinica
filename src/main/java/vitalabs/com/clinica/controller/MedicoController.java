@@ -4,7 +4,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import vitalabs.com.clinica.model.Medico;
-import vitalabs.com.clinica.model.Paciente;
 import vitalabs.com.clinica.service.MedicoService;
 
 import java.util.List;
@@ -35,11 +34,8 @@ public class MedicoController {
     @ResponseStatus(HttpStatus.CREATED)
     public Medico.DtoResponse create(@RequestBody Medico.DtoRequest m){
         Medico medico = this.service.create(Medico.DtoRequest.convertToEntity(m, mapper));
-        //Criar disponibilidades
         Medico.DtoResponse response = Medico.DtoResponse.convertToDto(medico, mapper);
-
         response.generateLinks(medico.getId());
-
         return response;
     }
 
